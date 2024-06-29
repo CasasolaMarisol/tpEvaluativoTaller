@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Marisol123
+      MYSQL_DATABASE: Prueba
+      MYSQL_USER: casasolam
+      MYSQL_PASSWORD: Marisol123
+    ports:
+      - "3307:3306"  # Puerto externo 3307 para evitar conflicto con otro servicio
+    networks:
+      - mynetwork
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - mynetwork
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: Marisol123
+    ports:
+      - "8081:80"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

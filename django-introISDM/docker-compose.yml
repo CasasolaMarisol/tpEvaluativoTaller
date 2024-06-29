@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  prueba_django:
+    image: python:3.9.5
+    container_name: prueba_djangoISDM
+    restart: always
+    volumes:
+      - type: bind
+        source: .
+        target: /opt/back_end
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3307
+      MYSQL_DB: Prueba
+      MYSQL_USER: casasolam
+      MYSQL_PASSWORD: Marisol123
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    external:
+      name: mynetwork
